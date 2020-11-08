@@ -117,4 +117,4 @@ def whatType(x: Any): String = x match
 
 whatType(12)
 whatType("Hello World")
-whatType(True)S
+whatType(True)
