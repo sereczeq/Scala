@@ -8,7 +8,7 @@ def find(toFind: String, tree: lBT[Any]): List[String] = tree match
 {
 	case Leaf => List()
 	case Branch(elem, left, right) =>
-	if(elem.contains(toFind)) elem :: find(toFind, left) ::: find(toFind, right)
+	if(elem.indexOf(toFind) != -1) elem :: find(toFind, left) ::: find(toFind, right)
 	else find(toFind, left) ::: find(toFind, right)
 }
 
