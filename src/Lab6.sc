@@ -8,14 +8,14 @@ def find(toFind: String, tree: lBT[Any]): List[String] = tree match
 {
 	case Leaf => List()
 	case Branch(elem, left, right) =>
-	{
-		if(elem.contains(toFind)) elem :: find(toFind, left) ::: find(toFind, right)
-		else find(toFind, left) ::: find(toFind, right)
-	}
+	if(elem.contains(toFind)) elem :: find(toFind, left) ::: find(toFind, right)
+	else find(toFind, left) ::: find(toFind, right)
 }
 
 
 find("Tes", Branch("Test", Branch("Testtt", Leaf, Leaf), Branch("estt", Leaf, Branch("SuperTes", Leaf, Leaf))))
+find("bang", Branch("Test", Branch("Testtt", Leaf, Leaf), Branch("estt", Leaf, Branch("SuperTes", Leaf, Leaf))))
+find("SuperTes", Branch("Test", Branch("Testtt", Leaf, Leaf), Branch("estt", Leaf, Branch("SuperTes", Leaf, Leaf))))
 
 def odd(k: Int): LazyList[Int] =
 {
