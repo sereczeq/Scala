@@ -10,3 +10,4 @@ def duplicate(values: Stream[Any], multipliers: Stream[Int]): Stream[Any] =
 	}
 
 duplicate(Stream(1, 2, 3), Stream(0, 3, 1, 4)).toList
+duplicate(Stream.from(1), Stream.from(1)).take(7).toList

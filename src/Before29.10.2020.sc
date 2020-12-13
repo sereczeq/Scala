@@ -5,19 +5,13 @@ def sub(x: Int, y: Int) = x - y
 def multiply(x: Int, y: Int) = x * y
 
 
-def mantissa(x: Double): Double =
+def mantissa(double: Double): Double =
 {
-	var mantissa = x
-	// if the number is negative, change it's sign
-	if(mantissa < 0) {
-		mantissa = -mantissa
-	}
-	while(mantissa >= 0) {
-		mantissa = mantissa - 1
-	}
-	// to properly round it up (not display full double value)
-	math.ceil((mantissa + 1) * 10) / 10
+	val bigDecimal = BigDecimal.valueOf(double)
+	(bigDecimal - bigDecimal.intValue).doubleValue
 }
+
+mantissa(3.213123121)
 
 @tailrec
 def fun1(a: Int, b: Int): Int =
@@ -29,10 +23,12 @@ def fun1(a: Int, b: Int): Int =
 
 def fun2(a: Int, b: Int): Int =
 {
-	if(a != 0 && b == 0) {
+	if(a != 0 && b == 0)
+	{
 		return fun2(a - 1, 1)
 	}
-	else if(a != 0) {
+	else if(a != 0)
+	{
 		return fun2(a - 1, fun2(a, b - 1))
 	}
 	b + 1
@@ -43,7 +39,8 @@ def sumArrayLoop(array: Array[Int]): Int =
 {
 
 	var sum = 0
-	for(elem <- array) {
+	for(elem <- array)
+	{
 		sum += elem
 	}
 	sum
@@ -51,9 +48,11 @@ def sumArrayLoop(array: Array[Int]): Int =
 
 def sumArrayRecursion(array: Array[Int]): Int =
 {
-	if(array.isEmpty) {
+	if(array.isEmpty)
+	{
 		0
-	} else {
+	} else
+	{
 		array.head + sumArrayRecursion(array.tail)
 	}
 }
@@ -64,11 +63,14 @@ def sumArrayRecursion(array: Array[Int]): Int =
 
 def sumOddValues(list: List[Int]): Int =
 {
-	if(list.isEmpty) {
+	if(list.isEmpty)
+	{
 		0
-	} else if(list.head % 2 == 0) {
+	} else if(list.head % 2 == 0)
+	{
 		sumOddValues(list.tail)
-	} else {
+	} else
+	{
 		list.head + sumOddValues(list.tail)
 	}
 }
@@ -81,23 +83,29 @@ def sumOddValues(list: List[Int]): Int =
 
 def connectIntoString(list: List[Any], separator: Any): String =
 {
-	if(list.isEmpty) {
+	if(list.isEmpty)
+	{
 		""
-	} else if(list.length == 1) {
+	} else if(list.length == 1)
+	{
 		list.head.toString
 	} // if there's only one element, the separator should not be applied
-	else {
+	else
+	{
 		list.head.toString + separator.toString + connectIntoString(list.tail, separator)
 	}
 }
 
 def howManyElements(list: List[Any], element: Any): Int =
 {
-	if(list.isEmpty) {
+	if(list.isEmpty)
+	{
 		0
-	} else if(list.head == element) {
+	} else if(list.head == element)
+	{
 		1 + howManyElements(list.tail, element)
-	} else {
+	} else
+	{
 		howManyElements(list.tail, element)
 	}
 }
@@ -105,29 +113,33 @@ def howManyElements(list: List[Any], element: Any): Int =
 
 def fibonacci(n: Int): Int =
 {
-	if(n == 0 || n == 1) {
+	if(n == 0 || n == 1)
+	{
 		n
-	} else {
+	} else
+	{
 		fibonacci(n - 1) + fibonacci(n - 2)
 	}
 }
 
-def and(x: Boolean, y: Boolean): Boolean = (x, y) match {
+def and(x: Boolean, y: Boolean): Boolean = (x, y) match
+{
 	case (true, true) => true
 	case (_, _) => false
 }
 
 def geometrical(firstElem: Float, multiplier: Int, howManyElems: Int): List[Float] =
 {
-	if(howManyElems <= 1) {
-		List(firstElem / 2)
-	} else {
+	if(howManyElems <= 0)
+	{
+		List()
+	} else
+	{
 		List(firstElem / 2) ++ geometrical(firstElem * multiplier, multiplier, howManyElems - 1)
 	}
 }
 
-
-
+geometrical(4, 2, 3)
 
 
 
@@ -138,9 +150,11 @@ def binaryReverse(number: Int): Int =
 	@tailrec
 	def binaryReverseString(array: String, result: String): String =
 	{
-		if(array.isEmpty) {
+		if(array.isEmpty)
+		{
 			result
-		} else {
+		} else
+		{
 			binaryReverseString(array.dropRight(1), result.appended(array(array.length - 1)))
 		}
 	}
@@ -157,16 +171,20 @@ def con(list: List[List[Any]]): List[Any] =
 		// sort elements in single list
 		def aroundElems(list: List[Any]): List[Any] =
 		{
-			if(list.isEmpty) {
+			if(list.isEmpty)
+			{
 				List()
-			} else {
+			} else
+			{
 				aroundElems(list.tail) ++ List(list.head)
 			}
 		}
 
-		if(list.isEmpty) {
+		if(list.isEmpty)
+		{
 			List()
-		} else {
+		} else
+		{
 			aroundLists(list.tail) ++ List(aroundElems(list.head))
 		}
 	}
@@ -174,11 +192,14 @@ def con(list: List[List[Any]]): List[Any] =
 	// unpack if all elements are sorted
 	def unpackLists(list: List[List[Any]]): List[Any] =
 	{
-		if(list.isEmpty) {
+		if(list.isEmpty)
+		{
 			List()
-		} else if(list.head.isEmpty) {
+		} else if(list.head.isEmpty)
+		{
 			unpackLists(list.tail)
-		} else {
+		} else
+		{
 			List(list.head.head) ++ unpackLists(List(list.head.tail) ++ list.tail)
 		}
 	}
@@ -195,9 +216,11 @@ def con(list: List[List[Any]]): List[Any] =
 @tailrec
 def sumList(list: List[Int], acc: BigInt = 0): BigInt =
 {
-	if(list.isEmpty) {
+	if(list.isEmpty)
+	{
 		acc
-	} else {
+	} else
+	{
 		sumList(list.tail, acc + list.head)
 	}
 }
@@ -209,9 +232,11 @@ sumList(List()) // expect 0
 
 def reverseListRegular(list: List[Any]): List[Any] =
 {
-	if(list.isEmpty) {
+	if(list.isEmpty)
+	{
 		List()
-	} else {
+	} else
+	{
 		reverseListRegular(list.tail) ++ List(list.head)
 	}
 }
@@ -223,9 +248,11 @@ reverseListRegular(List())
 @tailrec
 def reverseListTail(list: List[Any], acc: List[Any] = List()): List[Any] =
 {
-	if(list.isEmpty) {
+	if(list.isEmpty)
+	{
 		acc
-	} else {
+	} else
+	{
 		reverseListTail(list.tail, list.head :: acc)
 	} // :: creates a new list with list.head at beginning and acc at the end
 }
@@ -236,13 +263,17 @@ reverseListRegular(List())
 
 def addTwoLists(list1: List[Any], list2: List[Any]): List[Any] =
 {
-	if(list1.isEmpty && list2.nonEmpty) {
+	if(list1.isEmpty && list2.nonEmpty)
+	{
 		list2
-	} else if(list2.isEmpty && list1.nonEmpty) {
+	} else if(list2.isEmpty && list1.nonEmpty)
+	{
 		list1
-	} else if(list1.isEmpty && list2.isEmpty) {
+	} else if(list1.isEmpty && list2.isEmpty)
+	{
 		List()
-	} else {
+	} else
+	{
 		List(list1.head, list2.head) ++ addTwoLists(list1.tail, list2.tail)
 	}
 }
@@ -263,11 +294,14 @@ def fibonacci(n: Int): Int = {
 @tailrec
 def fibonacciTail(howMany: BigInt, e1: BigInt = 0, e2: BigInt = 1): BigInt =
 {
-	if(howMany < 1) {
+	if(howMany < 1)
+	{
 		0
-	} else if(howMany == 1) {
+	} else if(howMany == 1)
+	{
 		e2
-	} else {
+	} else
+	{
 		fibonacciTail(howMany - 1, e2, e1 + e2)
 	}
 }
@@ -281,11 +315,14 @@ fibonacciTail(-5) // expect 0
 @tailrec
 def splitIntoTwo(list: List[Int], odd: List[Int] = List(), even: List[Int] = List()): (List[Int], List[Int]) =
 {
-	if(list.isEmpty) {
+	if(list.isEmpty)
+	{
 		(odd, even)
-	} else if(list.head % 2 == 0) {
+	} else if(list.head % 2 == 0)
+	{
 		splitIntoTwo(list.tail, odd, even :+ list.head)
-	} else {
+	} else
+	{
 		splitIntoTwo(list.tail, odd :+ list.head, even)
 	}
 }
@@ -299,11 +336,14 @@ splitIntoTwo(List())
 @tailrec
 def isSorted(list: List[Int], lastElem: Int = Int.MinValue): Boolean =
 {
-	if(list.isEmpty) {
+	if(list.isEmpty)
+	{
 		true
-	} else if(list.head <= lastElem) {
+	} else if(list.head <= lastElem)
+	{
 		false
-	} else {
+	} else
+	{
 		isSorted(list.tail, list.head)
 	}
 }
@@ -316,11 +356,14 @@ isSorted(List()) // no wrong order, return true
 @tailrec
 def replaceElement(list: List[Any], index: Int, elem: Any, acc: List[Any] = List()): List[Any] =
 {
-	if(index < 0 || list.isEmpty) {
+	if(index < 0 || list.isEmpty)
+	{
 		list
-	} else if(index == 0) {
+	} else if(index == 0)
+	{
 		acc ++ List(elem) ++ list.tail
-	} else {
+	} else
+	{
 		replaceElement(list.tail, index - 1, elem, acc :+ list.head)
 	}
 }
@@ -330,7 +373,8 @@ replaceElement(List(1, 2, 3), 4, 5) // expect empty list
 replaceElement(List(), 3, 4) // expect empty list
 
 def convertPressure(atm: Double)(unit: String):
-Double = unit.toLowerCase() match {
+Double = unit.toLowerCase() match
+{
 	case "psi" => atm * 14.6956
 	case "torr" => atm * 760
 	case "pa" => atm * 101325
@@ -356,9 +400,11 @@ def subtractTailSum(list: List[Int]): Int =
 {
 	def sumList(list: List[Int]): Int =
 	{
-		if(list.isEmpty) {
+		if(list.isEmpty)
+		{
 			0
-		} else {
+		} else
+		{
 			list.head + sumList(list.tail)
 		}
 	}
@@ -381,11 +427,14 @@ sumTwoListsRegular(List(5, 4, 3, 2), List(1, 2, 3, 4, 5, 6))
 @tailrec
 def sumTwoListsTail(list1: List[Int], list2: List[Int], acc: List[Int] = List()): List[Int] =
 {
-	if(list1.isEmpty) {
+	if(list1.isEmpty)
+	{
 		acc ++ list2
-	} else if(list2.isEmpty) {
+	} else if(list2.isEmpty)
+	{
 		acc ++ list1
-	} else {
+	} else
+	{
 		sumTwoListsTail(list1.tail, list2.tail, acc :+ list1.head + list2.head)
 	}
 }
@@ -398,22 +447,28 @@ def splitIntoTwoRegular(list: List[Int]): (List[Int], List[Int]) =
 {
 	def getEven(list: List[Int]): List[Int] =
 	{
-		if(list.isEmpty) {
+		if(list.isEmpty)
+		{
 			List()
-		} else if(list.head % 2 == 0) {
+		} else if(list.head % 2 == 0)
+		{
 			List(list.head * list.head) ++ getEven(list.tail)
-		} else {
+		} else
+		{
 			getEven(list.tail)
 		}
 	}
 
 	def getOdd(list: List[Int]): List[Int] =
 	{
-		if(list.isEmpty) {
+		if(list.isEmpty)
+		{
 			List()
-		} else if(list.head % 2 != 0) {
+		} else if(list.head % 2 != 0)
+		{
 			List(list.head * 3) ++ getOdd(list.tail)
-		} else {
+		} else
+		{
 			getOdd(list.tail)
 		}
 	}
@@ -424,15 +479,19 @@ def splitIntoTwoRegular(list: List[Int]): (List[Int], List[Int]) =
 splitIntoTwoRegular(List(3, 6, 8, 9, 13))
 
 @tailrec
-def splitIntoTwoTail(list: List[Int], odd: List[Int] = List(), even: List[Int] = List()): (List[Int], List[Int]) =
+def splitIntoTwoTail(list: List[Int], odd: List[Int] = List(), even: List[Int] = List(), iterations: Int = 0): (List[Int], List[Int]) =
 {
-	if(list.isEmpty) {
+	print(iterations)
+	if(list.isEmpty)
+	{
 		(even, odd)
-	} else if(list.head % 2 == 0) {
-		splitIntoTwoTail(list.tail, odd, even :+ list.head * list.head)
-	} else {
-		splitIntoTwoTail(list.tail, odd :+ list.head * 3, even)
+	} else if(list.head % 2 == 0)
+	{
+		splitIntoTwoTail(list.tail, odd, even :+ list.head * list.head, iterations + 1)
+	} else
+	{
+		splitIntoTwoTail(list.tail, odd :+ list.head * 3, even, iterations + 1)
 	}
 }
 
-splitIntoTwoRegular(List(3, 6, 8, 9, 13))
+splitIntoTwoTail(List(3, 6, 8, 9, 13))
