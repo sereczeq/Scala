@@ -2,12 +2,9 @@ import scala.collection.mutable
 
 def wordCounter(text: String): mutable.Map[String, Int] =
 {
-	val map = mutable.Map.empty[String, Int]
+	val map = mutable.Map.empty[String, Int].withDefaultValue(0)
 
-	text.split(" ").foreach(word => {
-		if(map.contains(word)) map(word) +=1
-		else map.addOne(word, 1)
-	})
+	text.split(" ").foreach(word => map(word) +=1)
 	map
 }
 
